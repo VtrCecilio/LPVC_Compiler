@@ -1,26 +1,29 @@
 import ply.yacc as yacc
-
 from lexer import Lexer
 
 l = Lexer()
 tokens = l.get_tokens()
 
 def p_program(p):
-    '''program : statement
+    '''program : statement resto_statement
     | empty'''
     pass
 
 def p_statement(p):
-    '''statement : expression resto_statement
-    | atribuicao resto_statement
-    | forma_condicional resto_statement
-    | IMPRIMA LPAREN expression RPAREN resto_statement'''
+    '''statement : expression
+    | atribuicao
+    | forma_condicional
+    | printar'''
     pass
 
 def p_resto_statements(p):
     '''resto_statement : PONTO_VIRGULA
-    | PONTO_VIRGULA statement'''
+    | PONTO_VIRGULA statement resto_statement'''
     pass
+
+def p_printar(p):
+    '''printar : IMPRIMA LPAREN expression RPAREN'''
+    print(p[3])
 
 def p_forma_condicional(p):
     '''forma_condicional : SE LPAREN condicional RPAREN LCHAV statement RCHAV resto_condicional'''
@@ -41,25 +44,53 @@ def p_condicional(p):
     pass
 
 def p_expression(p):
-    '''expression : operacao
-    | NUMERO
-    | TEXTO'''
-    pass
+    '''expression : operacao'''
+    operacao = p[1]
+    resto_operacao = p[2]
+    if resto_operacao is not None:
+        print('aqui')
+        if resto_operacao[0] == '+':
+            p[0] = operacao + resto_operacao[1]
+        elif resto_operacao[0] == '-':
+            p[0] = operacao - resto_operacao[1]
+        elif resto_operacao[0] == '*':
+            p[0] = operacao * resto_operacao[1]
+        elif resto_operacao[0] == '/':
+            p[0] = operacao / resto_operacao[1] 
+    else:
+        print('aqui')
+        p[0] = operacao
+
+
 
 def p_operacao(p):
     '''operacao : NUMERO MAIS NUMERO
     | NUMERO MENOS NUMERO
     | NUMERO VEZES NUMERO
     | NUMERO DIVIDE NUMERO'''
-    pass
+    if p[2] == '+':
+        p[0] = p[1] + p[3]
+    elif p[2] == '-':
+        p[0] = p[1] - p[3]
+    elif p[2] == '*':
+        p[0] = p[1] * p[3]
+    elif p[2] == '/':
+        p[0] = p[1] / p[3]
+
+def p_resto_operacao(p):
+    '''resto_operacao : MAIS expression
+    | MENOS expression
+    | VEZES expression
+    | DIVIDE expression
+    | empty'''
+    try:
+        p[0] = (p[1], p[2])
+    except:
+        p[0] = None
 
 def p_atribuicao(p):
-    '''atribuicao : VAR ID RECEBE resto_atribuicao'''
-    pass
-
-def p_resto_atribuicao(p):
-    '''resto_atribuicao : expression
-    | condicional'''
+    '''atribuicao : VAR_NUMERO ID RECEBE expression
+    | VAR_TEXTO ID RECEBE TEXTO'''
     pass
 
 def p_empty(p):

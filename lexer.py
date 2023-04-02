@@ -4,7 +4,8 @@ class Lexer(object):
     reserved = {
         'se' : 'SE',
         'senao' : 'SENAO',
-        'let' : 'VAR',
+        'numero' : 'VAR_NUMERO',
+        'texto' : 'VAR_TEXTO',
         'imprima' : 'IMPRIMA'
     }
     
@@ -60,7 +61,7 @@ class Lexer(object):
         return t
 
     def t_TEXTO(self,t):
-        r'\"[a-zA-Z_0-9]*\"'
+        r'\"\s*[a-zA-Z_0-9]*\s[a-zA-Z_0-9]*\s*\"'
         return t
 
     # Define a rule so we can track line numbers
