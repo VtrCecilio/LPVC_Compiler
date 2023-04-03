@@ -6,6 +6,7 @@ class Lexer(object):
         'senao' : 'SENAO',
         'numero' : 'VAR_NUMERO',
         'texto' : 'VAR_TEXTO',
+        'imprimapl': 'IMPRIMAPL',
         'imprima' : 'IMPRIMA'
     }
     

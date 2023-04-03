@@ -1,1 +1,2 @@
-imprima((3+2)/2);
+imprimapl((3+2)/2);
+imprimapl();

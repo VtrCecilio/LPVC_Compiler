@@ -21,9 +21,20 @@ def p_resto_statements(p):
     | PONTO_VIRGULA statement resto_statement'''
     pass
 
+
 def p_printar(p):
-    '''printar : IMPRIMA LPAREN expression RPAREN'''
+    '''printar : printarpl
+    | printarsempl'''
+    pass
+
+def p_printar_com_pl(p):
+    '''printarpl : IMPRIMAPL LPAREN expression RPAREN'''
     print(p[3])
+
+
+def p_printar_sem_pl(p):
+    '''printarsempl : IMPRIMA LPAREN expression RPAREN'''
+    print(p[3], end='')
 
 def p_forma_condicional(p):
     '''forma_condicional : SE LPAREN condicional RPAREN LCHAV statement RCHAV resto_condicional'''
@@ -44,8 +55,10 @@ def p_condicional(p):
     pass
 
 def p_expression(p):
-    '''expression : numero'''
-    p[0] = p[1]
+    '''expression : numero
+    | empty'''
+    if p[1] != None: 
+        p[0] = p[1]
 
 def p_numero_sem_paren(p):
     '''numero : NUMERO operacao'''
