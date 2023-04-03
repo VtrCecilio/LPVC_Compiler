@@ -1,4 +1,1 @@
-numero primeiro = 10;
-numero segundo = ( primeiro + 1) - 2;
-
-imprimapl(segundo);
+se 2 > 1 {};

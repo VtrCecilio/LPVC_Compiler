@@ -15,7 +15,7 @@ def p_statement(p):
     '''statement : expression
     | atribuicao
     | reatribuicao
-    | forma_condicional
+    | se
     | printar'''
     pass
 
@@ -31,34 +31,43 @@ def p_printar(p):
 
 def p_printar_com_pl(p):
     '''printarpl : IMPRIMAPL LPAREN expression RPAREN'''
-    print(p[3])
+    #print(p[3])
+    pass
 
 def p_printar_sem_pl(p):
     '''printarsempl : IMPRIMA LPAREN expression RPAREN'''
-    print(p[3], end='')
-
-def p_forma_condicional(p):
-    '''forma_condicional : SE LPAREN condicional RPAREN LCHAV statement RCHAV resto_condicional'''
+    #print(p[3], end='')
     pass
 
-def p_resto_condicional(p):
-    '''resto_condicional : SENAO LCHAV statement RCHAV
-    | empty'''
-    pass
+def p_comparacao(p):
+    '''comparacao : expression resto_da_comparacao'''
+    expr = p[1]
+    resto = p[2]
+    if resto[0] == '>=':
+        p[0] = 'verdadeiro' if expr >= resto[1] else 'falso'
+    elif resto[0] == '<=':
+        p[0] = 'verdadeiro' if expr <= resto[1] else 'falso'
+    elif resto[0] == '==':
+        p[0] = 'verdadeiro' if expr == resto[1] else 'falso'
+    elif resto[0] == '>':
+        p[0] = 'verdadeiro' if expr > resto[1] else 'falso'
+    elif resto[0] == '<':
+        p[0] = 'verdadeiro' if expr < resto[1] else 'falso'
+    elif resto[0] == '<>':
+        p[0] = 'verdadeiro' if expr != resto[1] else 'falso'
 
-def p_condicional(p):
-    '''condicional : expression MAIORIGUAL expression
-    | expression MENORIGUAL expression
-    | expression IGUAL expression
-    | expression MAIOR expression
-    | expression MENOR expression
-    | expression DIFER expression'''
-    pass
+def p_resto_da_comparacao(p):
+    '''resto_da_comparacao : MAIORIGUAL expression
+    | MENORIGUAL expression
+    | IGUAL expression
+    | MAIOR expression
+    | MENOR expression
+    | DIFER expression'''
+    p[0] = [p[1], p[2]]
 
 def p_expression(p):
     '''expression : numero
-    | TEXTO
-    | empty'''
+    | TEXTO'''
     if p[1] != None: 
         p[0] = p[1]
 
@@ -153,14 +162,38 @@ def p_reatribuicao_tipo(p):
     else:
         pass
 
+
+def p_se(p):
+    '''se : SE formato_se'''
+    pass
+
+def p_formato_se_comparacao(p):
+    '''formato_se : LPAREN comparacao RPAREN LCHAV statements_se RCHAV resto_se 
+    | LPAREN VERDADEIRO RPAREN LCHAV statements_se RCHAV resto_se
+    | LPAREN FALSO RPAREN LCHAV statements_se RCHAV resto_se 
+    | comparacao LCHAV statements_se RCHAV resto_se '''
+    pass
+
+def p_formato_se_literal(p):
+    '''formato_se : comparacao LCHAV statements_se RCHAV resto_se'''
+    pass
+
+def p_statements_se(p):
+    '''statements_se : empty'''
+    pass
+
+def p_resto_se(p):
+    '''resto_se : empty'''
+
+
+
+
 def p_empty(p):
     'empty :'
     pass
 
-# Error rule for syntax errors
 def p_error(p):
     print("Syntax error in input!")
-    print(p)
 
 Parser = yacc.yacc()
 

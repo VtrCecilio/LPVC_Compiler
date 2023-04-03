@@ -3,11 +3,13 @@ import ply.lex as lex
 class Lexer(object):        
     reserved = {
         'se' : 'SE',
-        'senao' : 'SENAO',
         'numero' : 'VAR_NUMERO',
         'texto' : 'VAR_TEXTO',
         'imprimapl': 'IMPRIMAPL',
-        'imprima' : 'IMPRIMA'
+        'imprima' : 'IMPRIMA',
+        'leia' : 'LEIA',
+        'verdadeiro' : 'VERDADEIRO',
+        'falso' : 'FALSO'
     }
     
     # List of token names.   This is always required
@@ -30,7 +32,7 @@ class Lexer(object):
        'IGUAL',
        'RECEBE',
        'DIFER',
-       'PONTO_VIRGULA'
+       'PONTO_VIRGULA',
      ] + list(reserved.values())
 
     def get_tokens(self):
