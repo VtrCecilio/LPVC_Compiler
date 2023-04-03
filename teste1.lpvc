@@ -1,2 +1,4 @@
-numero segundo = 1;
-imprimapl(segundo + 1);
+numero primeiro = 10;
+numero segundo = ( primeiro + 1) - 2;
+
+imprimapl(segundo);

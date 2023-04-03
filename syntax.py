@@ -63,8 +63,7 @@ def p_expression(p):
         p[0] = p[1]
 
 def p_numero_sem_paren(p):
-    '''numero : NUMERO operacao
-    | ID operacao'''
+    '''numero : NUMERO operacao'''
     if p[2] == None:
         p[0] = p[1]
     else:
@@ -78,23 +77,31 @@ def p_numero_sem_paren(p):
         elif operacao[0] == '/':
             p[0] = p[1] / operacao[1]
 
-def p_numero_com_paren(p):
-    '''numero : LPAREN NUMERO operacao RPAREN operacao'''
-    if p[3] == None:
-        p[0] = p[2]
-    else:
-        operacao = p[3]
-        if operacao[0] == '+':
-            p[0] = p[2] + operacao[1]
-        elif operacao[0] == '-':
-            p[0] = p[2] - operacao[1]
-        elif operacao[0] == '*':
-            p[0] = p[2] * operacao[1]
-        elif operacao[0] == '/':
-            p[0] = p[2] / operacao[1]
+def p_numero_var(p):
+    '''numero : ID operacao'''
+    try:
+        variavel = namespace[p[1]]
+        p[0] = variavel[1]
 
-    if p[5] != None:
-        operacao = p[5]
+        if p[2] != None:
+            operacao = p[2]
+            if operacao[0] == '+':
+                p[0] = p[0] + operacao[1]
+            elif operacao[0] == '-':
+                p[0] = p[0] - operacao[1]
+            elif operacao[0] == '*':
+                p[0] = p[0] * operacao[1]
+            elif operacao[0] == '/':
+                p[0] = p[0] / operacao[1]
+    except:
+        print('Erro: Variavel não declarada')
+
+def p_numero_com_paren(p):
+    '''numero : LPAREN numero RPAREN operacao'''
+    p[0] = p[2]
+
+    if p[4] != None:
+        operacao = p[4]
         if operacao[0] == '+':
             p[0] = p[0] + operacao[1]
         elif operacao[0] == '-':
