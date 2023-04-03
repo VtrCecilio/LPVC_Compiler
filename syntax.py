@@ -4,6 +4,8 @@ from lexer import Lexer
 l = Lexer()
 tokens = l.get_tokens()
 
+namespace = dict()
+
 def p_program(p):
     '''program : statement resto_statement
     | empty'''
@@ -12,6 +14,7 @@ def p_program(p):
 def p_statement(p):
     '''statement : expression
     | atribuicao
+    | reatribuicao
     | forma_condicional
     | printar'''
     pass
@@ -21,7 +24,6 @@ def p_resto_statements(p):
     | PONTO_VIRGULA statement resto_statement'''
     pass
 
-
 def p_printar(p):
     '''printar : printarpl
     | printarsempl'''
@@ -30,7 +32,6 @@ def p_printar(p):
 def p_printar_com_pl(p):
     '''printarpl : IMPRIMAPL LPAREN expression RPAREN'''
     print(p[3])
-
 
 def p_printar_sem_pl(p):
     '''printarsempl : IMPRIMA LPAREN expression RPAREN'''
@@ -56,12 +57,14 @@ def p_condicional(p):
 
 def p_expression(p):
     '''expression : numero
+    | TEXTO
     | empty'''
     if p[1] != None: 
         p[0] = p[1]
 
 def p_numero_sem_paren(p):
-    '''numero : NUMERO operacao'''
+    '''numero : NUMERO operacao
+    | ID operacao'''
     if p[2] == None:
         p[0] = p[1]
     else:
@@ -115,7 +118,33 @@ def p_operacao(p):
 def p_atribuicao(p):
     '''atribuicao : VAR_NUMERO ID RECEBE expression
     | VAR_TEXTO ID RECEBE TEXTO'''
-    pass
+    if type(p[4]) is str:
+        namespace[p[2]] = [p[1], p[4]]
+    elif p[4] != None:
+        namespace[p[2]] = [p[1], p[4]]
+    else:
+        print('erro')
+
+def p_reatribuicao(p):
+    '''reatribuicao : ID RECEBE valor'''
+    try:
+        variavel = namespace[p[1]]
+        valor = p[3]
+        if variavel[0] == valor[0]:
+            variavel[1] = valor[1]
+        else:
+            print('erro: tipos diferentes') 
+    except:
+        print('erro: varivel não declarada')
+
+def p_reatribuicao_tipo(p):
+    '''valor : expression'''
+    if type(p[1]) is float:
+        p[0] = ['numero', p[1]]
+    elif type(p[1]) is str:
+        p[0] = ['texto', p[1]]
+    else:
+        pass
 
 def p_empty(p):
     'empty :'
@@ -124,6 +153,7 @@ def p_empty(p):
 # Error rule for syntax errors
 def p_error(p):
     print("Syntax error in input!")
+    print(p)
 
 Parser = yacc.yacc()
 

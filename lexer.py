@@ -61,14 +61,14 @@ class Lexer(object):
         t.value = float(t.value)
         return t
 
-    def t_TEXTO(self,t):
-        r'\"\s*[a-zA-Z_0-9]*\s[a-zA-Z_0-9]*\s*\"'
-        return t
-
     # Define a rule so we can track line numbers
     def t_newline(self,t):
         r'\n+'
         t.lexer.lineno += len(t.value)
+
+    def t_TEXTO(self,t):
+        r'("[^"]*")|(\'[^\']*\')'
+        return t
 
     def t_ID(self, t):
         r'[a-zA-Z_][a-zA-Z_0-9]*'

@@ -1,2 +1,2 @@
-imprimapl((3+2)/2);
-imprimapl();
+numero segundo = 1;
+imprimapl(segundo + 1);
