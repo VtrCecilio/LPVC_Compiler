@@ -47,8 +47,7 @@ def p_expression(p):
     '''expression : numero'''
     p[0] = p[1]
 
-
-def p_numero(p):
+def p_numero_sem_paren(p):
     '''numero : NUMERO operacao'''
     if p[2] == None:
         p[0] = p[1]
@@ -62,6 +61,32 @@ def p_numero(p):
             p[0] = p[1] * operacao[1]
         elif operacao[0] == '/':
             p[0] = p[1] / operacao[1]
+
+def p_numero_com_paren(p):
+    '''numero : LPAREN NUMERO operacao RPAREN operacao'''
+    if p[3] == None:
+        p[0] = p[2]
+    else:
+        operacao = p[3]
+        if operacao[0] == '+':
+            p[0] = p[2] + operacao[1]
+        elif operacao[0] == '-':
+            p[0] = p[2] - operacao[1]
+        elif operacao[0] == '*':
+            p[0] = p[2] * operacao[1]
+        elif operacao[0] == '/':
+            p[0] = p[2] / operacao[1]
+
+    if p[5] != None:
+        operacao = p[5]
+        if operacao[0] == '+':
+            p[0] = p[0] + operacao[1]
+        elif operacao[0] == '-':
+            p[0] = p[0] - operacao[1]
+        elif operacao[0] == '*':
+            p[0] = p[0] * operacao[1]
+        elif operacao[0] == '/':
+            p[0] = p[0] / operacao[1]
 
 def p_operacao(p):
     '''operacao : MAIS expression
