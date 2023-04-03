@@ -56,8 +56,8 @@ class Lexer(object):
     # A regular expression rule with some action code
     # Note addition of self parameter since we're in a class
     def t_NUMERO(self,t):
-        r'\d+'
-        t.value = int(t.value)
+        r'\d+(\.\d+)?'
+        t.value = float(t.value)
         return t
 
     def t_TEXTO(self,t):

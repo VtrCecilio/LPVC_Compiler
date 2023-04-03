@@ -44,49 +44,35 @@ def p_condicional(p):
     pass
 
 def p_expression(p):
-    '''expression : operacao'''
-    operacao = p[1]
-    resto_operacao = p[2]
-    if resto_operacao is not None:
-        print('aqui')
-        if resto_operacao[0] == '+':
-            p[0] = operacao + resto_operacao[1]
-        elif resto_operacao[0] == '-':
-            p[0] = operacao - resto_operacao[1]
-        elif resto_operacao[0] == '*':
-            p[0] = operacao * resto_operacao[1]
-        elif resto_operacao[0] == '/':
-            p[0] = operacao / resto_operacao[1] 
+    '''expression : numero'''
+    p[0] = p[1]
+
+
+def p_numero(p):
+    '''numero : NUMERO operacao'''
+    if p[2] == None:
+        p[0] = p[1]
     else:
-        print('aqui')
-        p[0] = operacao
-
-
+        operacao = p[2]
+        if operacao[0] == '+':
+            p[0] = p[1] + operacao[1]
+        elif operacao[0] == '-':
+            p[0] = p[1] - operacao[1]
+        elif operacao[0] == '*':
+            p[0] = p[1] * operacao[1]
+        elif operacao[0] == '/':
+            p[0] = p[1] / operacao[1]
 
 def p_operacao(p):
-    '''operacao : NUMERO MAIS NUMERO
-    | NUMERO MENOS NUMERO
-    | NUMERO VEZES NUMERO
-    | NUMERO DIVIDE NUMERO'''
-    if p[2] == '+':
-        p[0] = p[1] + p[3]
-    elif p[2] == '-':
-        p[0] = p[1] - p[3]
-    elif p[2] == '*':
-        p[0] = p[1] * p[3]
-    elif p[2] == '/':
-        p[0] = p[1] / p[3]
-
-def p_resto_operacao(p):
-    '''resto_operacao : MAIS expression
+    '''operacao : MAIS expression
     | MENOS expression
     | VEZES expression
     | DIVIDE expression
     | empty'''
-    try:
-        p[0] = (p[1], p[2])
-    except:
+    if p[1] == None:
         p[0] = None
+    else:
+        p[0] = (p[1], p[2])
 
 def p_atribuicao(p):
     '''atribuicao : VAR_NUMERO ID RECEBE expression
@@ -100,7 +86,6 @@ def p_empty(p):
 # Error rule for syntax errors
 def p_error(p):
     print("Syntax error in input!")
-    print(p)
 
 Parser = yacc.yacc()
 

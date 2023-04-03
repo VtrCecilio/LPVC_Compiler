@@ -5,13 +5,12 @@ import sys
 
 lex = Lexer()
 lex.build()
-parser = Parser
 
 if len(sys.argv) >= 2:
     with open(sys.argv[1], 'r') as f:
         #lex.test((f.read()))
 
-        result = parser.parse(f.read())
+        result = Parser.parse(f.read())
     
 else:
     print("Forneça um arquivo para compilação.")
