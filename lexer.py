@@ -88,8 +88,8 @@ class Lexer(object):
 
     # Error handling rule
     def t_error(self,t):
-        print("Illegal character '%s'" % t.value[0])
-        t.lexer.skip(1)
+        print("Erro léxico na linha %d! O token '%s' é ilegal. Encerrando compilação." % (t.lineno, t.value[0]))
+        exit()
 
     # Build the lexer
     def build(self,**kwargs):

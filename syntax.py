@@ -35,24 +35,37 @@ def p_algo_imprimir(p):
 
 def p_expressao(p):
     '''expressao : operacao
-    | condicional 
+    | condicao
     | literal'''
     p[0] = p[1]
 
+def p_condicao(p):
+    '''condicao : expressao condicional expressao'''
+    p[0] = ('condicao', p[1], p[2], p[3])
+
+def p_condicao_paren(p):
+    '''condicao : LPAREN expressao condicional expressao RPAREN'''
+    p[0] = ('condicao', p[2], p[3], p[4])
+
 def p_condicional(p):
-    '''condicional : empty'''
-    pass
+    '''condicional : MAIORIGUAL
+    | MENORIGUAL
+    | IGUAL
+    | MAIOR
+    | MENOR
+    | DIFER'''
+    p[0] = p[1]
 
 def p_operacao(p):
-    '''operacao : expressao operador expressao resto_operacao'''
+    '''operacao : NUMERO operador NUMERO resto_operacao'''
     p[0] = ('operacao', p[1], p[2], p[3], p[4])
 
 def p_operacao_paren(p):
-    '''operacao : LPAREN expressao RPAREN resto_operacao'''
+    '''operacao : LPAREN operacao RPAREN resto_operacao'''
     p[0] = ('operacao_paren', p[2], p[4])
 
 def p_resto_operacao(p):
-    '''resto_operacao : operador expressao resto_operacao'''
+    '''resto_operacao : operador NUMERO resto_operacao'''
     p[0] = ('resto_operacao', p[1], p[2], p[3])
 
 def p_resto_operacao_nula(p):
@@ -80,11 +93,11 @@ def p_literal_booleano(p):
     p[0] = ('booleano', p[1])
 
 def p_se(p):
-    '''se : SE condicional LCHAV statements RCHAV senao'''
+    '''se : SE condicao LCHAV outro_statement RCHAV senao'''
     p[0] = ('se', p[2], p[4], p[6])
 
 def p_senao(p):
-    '''senao : SENAO LCHAV statements RCHAV'''
+    '''senao : SENAO LCHAV outro_statement RCHAV'''
     p[0] = p[3]
 
 def p_senao_nulo(p):
@@ -96,7 +109,7 @@ def p_empty(p):
     pass
 
 def p_error(p):
-    print('Erro sintático na linha ' + str(p.lineno) + '. Encerrando compilação!')
+    print('Erro sintático. Encerrando compilação!', p)
     exit()
 
 Parser = yacc.yacc()
