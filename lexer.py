@@ -3,11 +3,12 @@ import ply.lex as lex
 class Lexer(object):        
     reserved = {
         'se' : 'SE',
+        'senao' : 'SENAO',
         'numero' : 'VAR_NUMERO',
         'texto' : 'VAR_TEXTO',
-        'imprimapl': 'IMPRIMAPL',
         'imprima' : 'IMPRIMA',
         'leia' : 'LEIA',
+        'booleano' : 'VAR_BOOLEANO',
         'verdadeiro' : 'VERDADEIRO',
         'falso' : 'FALSO'
     }
