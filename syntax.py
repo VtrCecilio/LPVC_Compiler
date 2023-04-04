@@ -20,9 +20,11 @@ def p_outro_statement(p):
 
 def p_statement(p):
     '''statement : imprimir
+    | ler
     | expressao
     | se
-    | enquanto'''
+    | enquanto
+    | atribuicao'''
     p[0] = p[1]
 
 def p_imprimir(p):
@@ -36,8 +38,17 @@ def p_algo_imprimir(p):
 def p_expressao(p):
     '''expressao : operacao
     | condicao
-    | literal'''
+    | literal
+    | variavel'''
     p[0] = p[1]
+
+def p_variavel(p):
+    '''variavel : ID'''
+    p[0] = ('variavel', p[1])
+
+def p_ler(p):
+    '''ler : LEIA LPAREN variavel RPAREN'''
+    p[0] = ('leia', p[3])
 
 def p_condicao(p):
     '''condicao : expressao condicional expressao'''
@@ -117,6 +128,23 @@ def p_senao_nulo(p):
 def p_enquanto(p):
     '''enquanto : ENQUANTO condicao LCHAV outro_statement RCHAV'''
     p[0] = ('enquanto', p[2], p[4])
+
+def p_declaracao(p):
+    '''declaracao : VAR_NUMERO ID atribuicao_numero
+    | VAR_TEXTO ID atribuicao_texto
+    | VAR_BOOLEANO ID atribuicao_texto'''
+
+def p_atribuicao_numero(p):
+    '''atribuicao : VAR_NUMERO ID RECEBE operacao'''
+    p[0] = ('atribuicao_numero', p[2], p[4])
+
+def p_atribuicao_texto(p):
+    '''atribuicao : VAR_TEXTO ID RECEBE literal_texto'''
+    p[0] = ('atribuicao_texto', p[2], p[4])
+
+def p_atribuicao_booleano(p):
+    '''atribuicao : VAR_BOOLEANO ID RECEBE literal_booleano'''
+    p[0] = ('atribuicao_booleano', p[2], p[4])
 
 def p_empty(p):
     '''empty :'''

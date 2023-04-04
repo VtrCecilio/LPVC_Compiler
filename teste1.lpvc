@@ -1,14 +1,8 @@
-(1+10)-4;
-imprima(2);
-imprima(3);
-imprima("vitor");
+#(1+10)-4;
+#imprima(2);
+#imprima(3);
+#imprima("vitor");
 
-se 2 > 1 {
+enquanto (9 <> 2) {
 
-};
-
-se 2>1 {
-    imprima(1);
-} senao {
-    imprima(10);
 };
