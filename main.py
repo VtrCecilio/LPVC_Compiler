@@ -8,8 +8,9 @@ lex.build()
 
 if len(sys.argv) >= 2:
     with open(sys.argv[1], 'r') as f:
-        #lex.test((f.read()))
+        lex.test((f.read()))
         result = Parser.parse(f.read())
-    
+        print(result)
+
 else:
     print("Forneça um arquivo para compilação.")
