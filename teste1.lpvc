@@ -1,7 +1,11 @@
-(3+1)-1/4;
+(1+10)-4;
 imprima(2);
 imprima(3);
 imprima("vitor");
+
+se 2 > 1 {
+
+};
 
 se 2>1 {
     imprima(1);

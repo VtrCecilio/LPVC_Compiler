@@ -58,15 +58,19 @@ def p_condicional(p):
 
 def p_operacao(p):
     '''operacao : NUMERO operador NUMERO resto_operacao'''
-    p[0] = ('operacao', p[1], p[2], p[3], p[4])
+    p[0] = ('operacao_full', p[1], p[2], p[3], p[4])
 
 def p_operacao_paren(p):
     '''operacao : LPAREN operacao RPAREN resto_operacao'''
     p[0] = ('operacao_paren', p[2], p[4])
 
+def p_operacao_literal(p):
+    '''operacao : literal_numero'''
+    p[0] = ('operacao_literal', p[1])
+
 def p_resto_operacao(p):
-    '''resto_operacao : operador NUMERO resto_operacao'''
-    p[0] = ('resto_operacao', p[1], p[2], p[3])
+    '''resto_operacao : operador operacao'''
+    p[0] = ('resto_operacao', p[1], p[2])
 
 def p_resto_operacao_nula(p):
     '''resto_operacao : empty'''
@@ -79,16 +83,22 @@ def p_operador(p):
     | DIVIDE'''
     p[0] = p[1]
 
+def p_literal(p):
+    '''literal : literal_numero
+    | literal_texto
+    | literal_booleano'''
+    p[0] = p[1]
+
 def p_literal_numero(p):
-    '''literal : NUMERO'''
+    '''literal_numero : NUMERO'''
     p[0] = ('numero', p[1])
 
 def p_literal_texto(p):
-    '''literal : TEXTO'''
+    '''literal_texto : TEXTO'''
     p[0] = ('texto', p[1])
 
 def p_literal_booleano(p):
-    '''literal : VERDADEIRO
+    '''literal_booleano : VERDADEIRO
     | FALSO'''
     p[0] = ('booleano', p[1])
 
@@ -109,7 +119,10 @@ def p_empty(p):
     pass
 
 def p_error(p):
-    print('Erro sintático. Encerrando compilação!', p)
+    try:
+        print('Erro sintático na linha %d. Encerrando compilação!' % p.lineno)       
+    except:
+        print('Erro sintático, linha não detectada. Encerrando compilação!',) 
     exit()
 
 Parser = yacc.yacc()
