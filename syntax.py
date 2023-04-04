@@ -21,9 +21,9 @@ def p_outro_statement(p):
 def p_statement(p):
     '''statement : imprimir
     | expressao
-    | se'''
+    | se
+    | enquanto'''
     p[0] = p[1]
-    pass
 
 def p_imprimir(p):
     '''imprimir : IMPRIMA LPAREN algo_imprimir RPAREN'''
@@ -113,6 +113,10 @@ def p_senao(p):
 def p_senao_nulo(p):
     '''senao : empty'''
     p[0] = p[1]
+
+def p_enquanto(p):
+    '''enquanto : ENQUANTO condicao LCHAV outro_statement RCHAV'''
+    p[0] = ('enquanto', p[2], p[4])
 
 def p_empty(p):
     '''empty :'''

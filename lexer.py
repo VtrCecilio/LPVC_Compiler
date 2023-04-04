@@ -3,6 +3,7 @@ import ply.lex as lex
 class Lexer(object):        
     reserved = {
         'se' : 'SE',
+        'enquanto' : 'ENQUANTO',
         'senao' : 'SENAO',
         'numero' : 'VAR_NUMERO',
         'texto' : 'VAR_TEXTO',

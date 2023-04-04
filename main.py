@@ -3,7 +3,6 @@ from syntax import Parser
 from semantic import semantic_analyser as sa
 import sys
 
-
 lex = Lexer()
 lex.build()
 
