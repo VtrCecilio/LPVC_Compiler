@@ -51,12 +51,15 @@ def p_ler(p):
     p[0] = ('leia', p[3])
 
 def p_condicao(p):
-    '''condicao : expressao condicional expressao'''
+    '''condicao : cond_operando condicional cond_operando'''
     p[0] = ('condicao', p[1], p[2], p[3])
 
 def p_condicao_paren(p):
-    '''condicao : LPAREN expressao condicional expressao RPAREN'''
+    '''condicao : LPAREN cond_operando condicional cond_operando RPAREN'''
     p[0] = ('condicao', p[2], p[3], p[4])
+
+def p_condicao_operandos(p):
+    pass
 
 def p_condicional(p):
     '''condicional : MAIORIGUAL
@@ -68,7 +71,7 @@ def p_condicional(p):
     p[0] = p[1]
 
 def p_operacao(p):
-    '''operacao : NUMERO operador NUMERO resto_operacao'''
+    '''operacao : operando operador operando resto_operacao'''
     p[0] = ('operacao_full', p[1], p[2], p[3], p[4])
 
 def p_operacao_paren(p):
@@ -76,8 +79,8 @@ def p_operacao_paren(p):
     p[0] = ('operacao_paren', p[2], p[4])
 
 def p_operacao_literal(p):
-    '''operacao : literal_numero'''
-    p[0] = ('operacao_literal', p[1])
+    '''operacao : operando'''
+    p[0] = ('operacao_operando_unico', p[1])
 
 def p_resto_operacao(p):
     '''resto_operacao : operador operacao'''
@@ -92,6 +95,16 @@ def p_operador(p):
     | MENOS
     | VEZES
     | DIVIDE'''
+    p[0] = p[1]
+
+def p_operando(p):
+    '''operando : variavel
+    | literal_numero'''
+    p[0] = p[1]
+
+def p_texto(p):
+    '''texto : variavel
+    | literal_texto'''
     p[0] = p[1]
 
 def p_literal(p):
@@ -133,7 +146,7 @@ def p_declaracao(p):
     '''declaracao : VAR_NUMERO ID atribuicao_numero
     | VAR_TEXTO ID atribuicao_texto
     | VAR_BOOLEANO ID atribuicao_booleano'''
-    pass
+    p[0] = ('declaracao', p[2], p[3])
 
 def p_atribuicao_numero(p):
     '''atribuicao_numero : RECEBE operacao'''
@@ -144,7 +157,7 @@ def p_atribuicao_numero_vazio(p):
     p[0] = ('atribuicao_numero', ('numero_vazio', None))
 
 def p_atribuicao_texto(p):
-    '''atribuicao_texto : RECEBE literal_texto'''
+    '''atribuicao_texto : RECEBE texto'''
     p[0] = ('atribuicao_texto', p[2])
 
 def p_atribuicao_texto_vazio(p):
