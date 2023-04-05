@@ -24,7 +24,7 @@ def p_statement(p):
     | expressao
     | se
     | enquanto
-    | atribuicao'''
+    | declaracao'''
     p[0] = p[1]
 
 def p_imprimir(p):
@@ -132,19 +132,32 @@ def p_enquanto(p):
 def p_declaracao(p):
     '''declaracao : VAR_NUMERO ID atribuicao_numero
     | VAR_TEXTO ID atribuicao_texto
-    | VAR_BOOLEANO ID atribuicao_texto'''
+    | VAR_BOOLEANO ID atribuicao_booleano'''
+    pass
 
 def p_atribuicao_numero(p):
-    '''atribuicao : VAR_NUMERO ID RECEBE operacao'''
-    p[0] = ('atribuicao_numero', p[2], p[4])
+    '''atribuicao_numero : RECEBE operacao'''
+    p[0] = ('atribuicao_numero', p[2])
+
+def p_atribuicao_numero_vazio(p):
+    '''atribuicao_numero : empty'''
+    p[0] = ('atribuicao_numero', ('numero_vazio', None))
 
 def p_atribuicao_texto(p):
-    '''atribuicao : VAR_TEXTO ID RECEBE literal_texto'''
-    p[0] = ('atribuicao_texto', p[2], p[4])
+    '''atribuicao_texto : RECEBE literal_texto'''
+    p[0] = ('atribuicao_texto', p[2])
+
+def p_atribuicao_texto_vazio(p):
+    '''atribuicao_texto : empty'''
+    p[0] = ('atribuicao_texto', ('texto_vazio', None))
 
 def p_atribuicao_booleano(p):
-    '''atribuicao : VAR_BOOLEANO ID RECEBE literal_booleano'''
-    p[0] = ('atribuicao_booleano', p[2], p[4])
+    '''atribuicao_booleano : RECEBE literal_booleano'''
+    p[0] = ('atribuicao_booleano', p[2])
+
+def p_atribuicao_booleano_vazio(p):
+    '''atribuicao_booleano : empty'''
+    p[0] = ('atribuicao_booleano', ('booleano_vazio', None))
 
 def p_empty(p):
     '''empty :'''

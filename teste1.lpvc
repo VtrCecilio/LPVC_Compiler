@@ -1,8 +1,4 @@
-#(1+10)-4;
-#imprima(2);
-#imprima(3);
-#imprima("vitor");
+2+5;
+1-1;
 
-enquanto (9 <> 2) {
-
-};
+numero primeiro;
