@@ -37,6 +37,7 @@ def trata_atribuicao_numero(node):
     atri = node[1]
     if atri[0] == 'operacao_operando_unico':
         if atri[1][0] == 'numero':
+            print(node)
             return atri[1]
         elif atri[1][0] == 'variavel':
             valor_vari = semantic_analyser(atri[1])
@@ -44,8 +45,13 @@ def trata_atribuicao_numero(node):
                 return valor_vari
             else:
                 print("Erro semântico. Variável '%s' não é numérica." % node[1])
-    else:
-        pass
+    elif atri[0] == 'operacao_full':
+        semantic_analyser(atri[1])
+        semantic_analyser(atri[3])
+        semantic_analyser(atri[4])
+    elif atri[0] == 'numero_vazio':
+        return atri
+        
 
 def trata_variavel(node):
     for namespace in namespaces:
@@ -59,7 +65,15 @@ def trata_variavel(node):
             
 
 def trata_atribuicao_texto(node):
-    pass
+    if (node[1][0] == 'texto') or (node[1][0] == 'texto_vazio'):
+        return node[1]
+    elif (node[1][0] == 'variavel'):
+        variavel = trata_variavel(node[1])
+        if (variavel[0] == 'texto') or (variavel[0] == 'texto_vazio'):
+            return variavel
+        else:
+            print("Erro semântico. Valor da variável '%s' passada para a atribuição não é do tipo 'texto'." % node[1][1])
+    exit()
 
 tratamentos = {
     'root' : trata_root,

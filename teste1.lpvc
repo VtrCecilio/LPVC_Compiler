@@ -1,2 +1,4 @@
 texto nome = 'vitor';
 numero primeiro = 1;
+
+numero segundo = 3 + primeiro;
