@@ -51,15 +51,21 @@ def p_ler(p):
     p[0] = ('leia', p[3])
 
 def p_condicao(p):
-    '''condicao : cond_operando condicional cond_operando'''
+    '''condicao : operacao condicional operacao'''
     p[0] = ('condicao', p[1], p[2], p[3])
 
 def p_condicao_paren(p):
-    '''condicao : LPAREN cond_operando condicional cond_operando RPAREN'''
+    '''condicao : LPAREN operacao condicional operacao RPAREN'''
     p[0] = ('condicao', p[2], p[3], p[4])
 
-def p_condicao_operandos(p):
-    pass
+def p_condicao_unica(p):
+    '''condicao : literal_booleano
+    | variavel'''
+    p[0] = ('condicao_unica', p[1])
+
+def p_condicao_literal_paren(p):
+    '''condicao : LPAREN literal_booleano RPAREN'''
+    p[0] = p[2]
 
 def p_condicional(p):
     '''condicional : MAIORIGUAL
