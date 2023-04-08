@@ -1,2 +1,2 @@
-numero ana;
-booleano quarto = 3>ana;
+numero ana = 1;
+numero pedro = 2;
