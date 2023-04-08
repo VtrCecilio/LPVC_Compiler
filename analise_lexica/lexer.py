@@ -14,7 +14,7 @@ class Lexer(object):
         'falso' : 'FALSO'
     }
     
-    # List of token names.   This is always required
+    # Tipos de Tokens que existem na linguagem
     tokens = [
        'NUMERO',
        'TEXTO',
@@ -58,45 +58,48 @@ class Lexer(object):
     t_RCHAV  = r'\}'
     t_PONTO_VIRGULA = r'\;'
 
-    # A regular expression rule with some action code
-    # Note addition of self parameter since we're in a class
+
+    # Regular Expression para literais do tipo 'numero'
     def t_NUMERO(self,t):
         r'\d+(\.\d+)?'
         t.value = float(t.value)
         return t
 
-    # Define a rule so we can track line numbers
+    # Seta um tracker para número de linhas
     def t_newline(self,t):
         r'\n+'
         t.lexer.lineno += len(t.value)
 
+
+    # Regular Expression para literais do tipo 'texto'
     def t_TEXTO(self,t):
         r'("[^"]*")|(\'[^\']*\')'
         return t
 
+    # Reconheço tokens do tipo 'ID', se for palavra reservada, o converte para tipo correto.
     def t_ID(self, t):
         r'[a-zA-Z_][a-zA-Z_0-9]*'
-        t.type = self.reserved.get(t.value,'ID')    # Check for reserved words
+        t.type = self.reserved.get(t.value,'ID')
         return t
 
-    # A string containing ignored characters (spaces and tabs)
+    # Ignora spaços e tabs
     t_ignore  = ' \t'
 
+    # Ignora linhas comentários, começam com '#'
     def t_COMMENT(self,t):
         r'\#.*'
         pass
-        # No return value. Token discarded
 
-    # Error handling rule
+    # Mensagem default para erros léxicos
     def t_error(self,t):
         print("Erro léxico na linha %d! O token '%s' é ilegal. Encerrando compilação." % (t.lineno, t.value[0]))
         exit()
 
-    # Build the lexer
+    # Builder do Lexer
     def build(self,**kwargs):
         self.lexer = lex.lex(module=self, **kwargs)
 
-    # Test it output
+    # Método para testar o Lexer
     def test(self,data):
         self.lexer.input(data)
         while True:

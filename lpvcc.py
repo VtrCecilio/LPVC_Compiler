@@ -1,6 +1,6 @@
-from lexer import Lexer
-from syntax import Parser
-from semantic import semantic_analyser as sa
+from analise_lexica.lexer import Lexer
+from analise_sintatica.syntax import Parser
+from analise_semantica.semantic import semantic_analyser as sa
 import sys
 
 lex = Lexer()

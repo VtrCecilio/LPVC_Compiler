@@ -13,6 +13,8 @@ def trata_statements(node, semantic_analyser, namespaces):
 
 def trata_root(root, semantic_analyser, namespaces):
     node = root[1]
+    if node == None:
+        exit()
     namespaces.insert(0, {})
     semantic_analyser(node)
         
@@ -38,8 +40,5 @@ tratamentos = {
 }
 
 def semantic_analyser(node):
-    if node[0] == 'root':
-        if node[1] == None:
-            exit()
     funcao_tratar = tratamentos[node[0]]
     return funcao_tratar(node, semantic_analyser, namespaces)
