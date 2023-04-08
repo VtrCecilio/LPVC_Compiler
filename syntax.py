@@ -24,7 +24,8 @@ def p_statement(p):
     | expressao
     | se
     | enquanto
-    | declaracao'''
+    | declaracao
+    | reatribuicao'''
     p[0] = p[1]
 
 def p_imprimir(p):
@@ -77,7 +78,7 @@ def p_condicional(p):
     p[0] = p[1]
 
 def p_operacao(p):
-    '''operacao : operando operador operando resto_operacao'''
+    '''operacao : operando operador operacao resto_operacao'''
     p[0] = ('operacao_full', p[1], p[2], p[3], p[4])
 
 def p_operacao_paren(p):
@@ -106,6 +107,10 @@ def p_operador(p):
 def p_operando(p):
     '''operando : variavel
     | literal_numero'''
+    p[0] = p[1]
+
+def p_booleano(p):
+    '''booleano : condicao'''
     p[0] = p[1]
 
 def p_texto(p):
@@ -171,12 +176,23 @@ def p_atribuicao_texto_vazio(p):
     p[0] = ('atribuicao_texto', ('texto_vazio', None))
 
 def p_atribuicao_booleano(p):
-    '''atribuicao_booleano : RECEBE literal_booleano'''
+    '''atribuicao_booleano : RECEBE booleano'''
     p[0] = ('atribuicao_booleano', p[2])
 
 def p_atribuicao_booleano_vazio(p):
     '''atribuicao_booleano : empty'''
     p[0] = ('atribuicao_booleano', ('booleano_vazio', None))
+    
+def p_reatribuicao(p):
+    'reatribuicao : ID RECEBE resto_reatribuicao'
+    p[0] = ('reatribuicao', p[1], p[3])
+
+def p_resto_reatribuicao(p):
+    '''resto_reatribuicao : ID
+    | operacao
+    | texto
+    | booleano'''
+    p[0] = p[1]
 
 def p_empty(p):
     '''empty :'''
@@ -184,6 +200,7 @@ def p_empty(p):
 
 def p_error(p):
     try:
+        print(p)
         print('Erro sintático na linha %d. Encerrando compilação!' % p.lineno)       
     except:
         print('Erro sintático, linha não detectada. Encerrando compilação!',) 

@@ -1,4 +1,2 @@
-texto nome = 'vitor';
-numero primeiro = 1;
-
-numero segundo = 3 + primeiro;
+numero ana;
+booleano quarto = 3>ana;
