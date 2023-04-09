@@ -1,1 +1,3 @@
-booleano retarda = 3 > 2;
+numero retarda = 2;
+
+retarda = 4;

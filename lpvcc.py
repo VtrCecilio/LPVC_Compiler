@@ -13,7 +13,7 @@ if len(sys.argv) >= 2:
         #print(result)
         namespaces = []
         sa(result, namespaces, 0)
-        print(namespaces)
+        #print(namespaces)
 
 else:
     print("Forneça um arquivo para compilação.")

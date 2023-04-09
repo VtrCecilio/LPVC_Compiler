@@ -20,7 +20,8 @@ tratamentos = {
     None : trata_none,
     'root' : trata_root,
     'statements' : trata_statements,
-    'declaracao' : trata_declaracao
+    'declaracao' : trata_declaracao,
+    'reatribuicao' : trata_reatribuicao
 }
 
 def semantic_analyser(node, nms, linha):

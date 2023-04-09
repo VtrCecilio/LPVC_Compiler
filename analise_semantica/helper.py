@@ -1,4 +1,14 @@
 # Verifica redeclarações apenas no escopo no topo da pilha de namespaces.
+def busca_namespaces(id, nms, linha):
+    i = 0
+    for nm in nms:
+        if id in nm:
+            return nm[id], i
+        i += 1
+    print('Erro semântico no statement %d. Variável \'%s\' não foi declarada.' % (linha, id))
+    exit()
+
+
 def verifica_redeclaracao(id, nms, linha):
     if id in nms[0]:
         print('Erro semântico no statement %d. Variável \'%s\' já foi declarada nesse escopo.' % (linha, id))
@@ -14,6 +24,9 @@ def verifica_numero(expressao, sa, nms, linha):
         verifica_semantica('numero', expressao[2], sa, nms, linha)
     elif expressao[0] == 'resto_operacao':
         verifica_semantica('numero', expressao[2], sa, nms, linha)
+    elif expressao[0] == 'variavel':
+        variavel, i = busca_namespaces(expressao[1], nms, linha)
+        verifica_semantica('numero', variavel, sa, nms, linha)
     else:
         print('Erro semântico no statement %d. Expressão não é do tipo numérica.' % linha)
         exit()
@@ -36,6 +49,9 @@ def verifica_texto(expressao, sa, nms, linha):
             exit()
         else:
             verifica_semantica('texto', expressao[2], sa, nms, linha)
+    elif expressao[0] == 'variavel':
+        variavel, i = busca_namespaces(expressao[1], nms, linha)
+        verifica_semantica('texto', variavel, sa, nms, linha)
     else:
         print('Erro semântico no statement %d. Expressão não é do tipo textual.' % linha)
         exit()
@@ -45,6 +61,9 @@ def verifica_booleano(expressao, sa, nms, linha):
     if expressao[0] == 'comparacao':
         verifica_semantica('numero', expressao[1], sa, nms, linha)
         verifica_semantica('numero', expressao[3], sa, nms, linha)
+    elif expressao[0] == 'variavel':
+        variavel, i = busca_namespaces(expressao[1], nms, linha)
+        verifica_semantica('booleano', variavel, sa, nms, linha)
     else: 
         print('Erro semântico no statement %d. Expressão não é do tipo booleano.' % linha)
         exit()
