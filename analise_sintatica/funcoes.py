@@ -6,7 +6,7 @@ def p_funcoes(p):
 
 def p_imprimir(p):
     '''imprimir : IMPRIMA LPAREN entrada_imprimir RPAREN'''
-    p[0] = ('imprima', (p[3]), p.lineno)
+    p[0] = ('imprima', p[3])
 
 def p_algo_imprimir(p):
     '''entrada_imprimir : expressao'''
@@ -14,4 +14,4 @@ def p_algo_imprimir(p):
 
 def p_ler(p):
     '''ler : LEIA LPAREN variavel RPAREN'''
-    p[0] = ('leia', (p[3]), p.lineno)
+    p[0] = ('leia', p[3])

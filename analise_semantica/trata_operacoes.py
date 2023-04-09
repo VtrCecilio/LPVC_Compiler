@@ -1,6 +1,8 @@
+from analise_semantica.semantic import semantic_analyser, namespaces
+
 numericos = ['numero', 'operacao_full', 'operacao_operando_unico', 'operacao_paren']
 
-def trata_operacao_full(node, semantic_analyser, namespaces):
+def trata_operacao_full(node):
     op1 = semantic_analyser(node[1])
     
     if (op1[0] == 'numero_vazio'):
@@ -22,14 +24,14 @@ def trata_operacao_full(node, semantic_analyser, namespaces):
         op_resto = semantic_analyser(node[4])
     return node
 
-def trata_operacao_paren(node, semantic_analyser, namespaces):
+def trata_operacao_paren(node):
     print(node)
     semantic_analyser(node[1])
     if node[2] != None:
         semantic_analyser(node[2])
     return node
 
-def trata_operando_unico(node, semantic_analyser, namespaces):
+def trata_operando_unico(node):
     if node[1][0] == 'numero':
             return node[1]
     elif node[1][0] == 'variavel':
@@ -43,6 +45,6 @@ def trata_operando_unico(node, semantic_analyser, namespaces):
             print("Erro semântico. Variável '%s' não é numérica." % node[1][1])
             exit()
 
-def trata_resto_operacao(node, semantic_analyser, namespaces):
+def trata_resto_operacao(node):
     semantic_analyser(node[2])
     return node

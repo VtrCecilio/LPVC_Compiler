@@ -1,2 +1,4 @@
-def trata_enquanto(node, semantic_analyser, namespaces):
+from analise_semantica.semantic import semantic_analyser, namespaces
+
+def trata_enquanto(node):
     namespaces.insert(0, {})

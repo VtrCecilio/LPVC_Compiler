@@ -10,4 +10,4 @@ def p_laco(p):
 
 def p_enquanto(p):
     '''enquanto : ENQUANTO condicao_laco LCHAV outro_statement RCHAV'''
-    p[0] = ('enquanto', (p[2], p[4]), p.lineno)
+    p[0] = ('enquanto', p[2], p[4])
