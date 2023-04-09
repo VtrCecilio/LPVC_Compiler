@@ -1,6 +1,7 @@
 import ply.lex as lex
 
 class Lexer(object):        
+    # Palavras reservadas da linguagem. São "unidas" aos tokens
     reserved = {
         'se' : 'SE',
         'enquanto' : 'ENQUANTO',
@@ -40,7 +41,7 @@ class Lexer(object):
     def get_tokens(self):
         return self.tokens
 
-    # Regular expression rules for simple tokens
+    # Expressões regulares para Tokens simples
     t_MAIORIGUAL = r'\>\='
     t_MAIOR = r'\>'
     t_MENORIGUAL = r'\<\='

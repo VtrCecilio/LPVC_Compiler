@@ -1,3 +1,9 @@
+def p_literal(p):
+    '''literal : literal_numero
+    | literal_texto
+    | literal_booleano'''
+    p[0] = p[1]
+
 def p_literal_numero(p):
     '''literal_numero : NUMERO'''
     p[0] = ('numero', p[1])
