@@ -1,4 +1,5 @@
-from analise_semantica.semantic import semantic_analyser, namespaces
+from analise_semantica.helper import *
 
-def trata_enquanto(node):
-    namespaces.insert(0, {})
+def trata_enquanto(node, sa, nms, linha):
+    nms.insert(0, {})
+    nms.pop(0)

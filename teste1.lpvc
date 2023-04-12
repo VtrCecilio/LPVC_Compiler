@@ -1,3 +1,3 @@
-numero retarda = 2;
+texto aba = 'jose';
 
-retarda = 4;
+leia(aba);

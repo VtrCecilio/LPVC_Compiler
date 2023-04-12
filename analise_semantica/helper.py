@@ -1,3 +1,5 @@
+literais = ['texto', 'numero', 'booleano']
+
 # Verifica redeclarações apenas no escopo no topo da pilha de namespaces.
 def busca_namespaces(id, nms, linha):
     i = 0
@@ -81,3 +83,13 @@ def verifica_semantica(tipo, expressao, sa, nms, linha):
         if expressao[0] != 'booleano':
             verifica_booleano(expressao, sa, nms, linha)
         
+def resolve_type(node, sa, nms, linha):
+    if node[0] in literais:
+        return node[0]
+    elif node[0] == 'comparacao':
+        return 'booleano'
+    elif node[0] == 'variavel':
+        variavel, index = busca_namespaces(node[1], nms, linha)
+        return variavel[0]
+    else:
+        return resolve_type(node[1], sa, nms, linha)
