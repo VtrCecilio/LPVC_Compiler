@@ -12,7 +12,7 @@ if len(sys.argv) >= 2:
         result = Parser.parse(f.read())
         #print(result)
         namespaces = []
-        sa(result, namespaces, 0)
+        sa(result, namespaces, 1)
         #print(namespaces)
 
 else:

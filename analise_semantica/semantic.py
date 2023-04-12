@@ -1,14 +1,21 @@
 from analise_semantica.trata_declaracoes import *
 from analise_semantica.trata_funcoes import *
 from analise_semantica.trata_lacos import *
-
+from analise_semantica.trata_expressoes import *
+from analise_semantica.helper import literais, operacoes
 
 # Trata statements em ordem (Por exemplo dado o nó Root ou em um laço)
 def trata_statements(node, sa, nms, linha):
     statements = node[1:]
     for statement in statements:
-        if statement is not None:
-            sa(statement, nms, linha + 1)
+        if (statement != None) and (statement[0] in literais):
+            # Apenas um literal, o statement já é considerado correto por si só
+            pass
+        elif (statement != None) and (statement[0] in operacoes):
+            trata_expressoes(statement, sa, nms, linha)
+        else:
+            sa(statement, nms, linha)
+        linha += 1
 
 
 # Trata o primeiro nó da AST
