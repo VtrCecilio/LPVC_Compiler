@@ -1,3 +1,28 @@
-texto aba = 'jose';
+numero primeiro = 1;
 
-leia(aba);
+enquanto (3 > 1) {
+    numero segundo = 2;
+
+    imprima(primeiro);
+    imprima(segundo);
+
+    enquanto 3 > 2 {
+        numero terceiro = 3;
+        imprima(primeiro);
+        imprima(segundo);
+        imprima(terceiro);
+    };
+    #imprima(terceiro);
+};
+
+#imprima(segundo);
+#imprima(terceiro);
+
+se 3>1 {
+    texto nome = 'vitor';
+} senao {
+    texto sobrenome = 'cecilio';
+};
+
+#leia(nome);
+#leia(sobrenome);

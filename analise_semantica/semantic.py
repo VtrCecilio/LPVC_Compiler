@@ -1,5 +1,6 @@
 from analise_semantica.trata_declaracoes import *
 from analise_semantica.trata_funcoes import *
+from analise_semantica.trata_lacos import *
 
 
 # Trata statements em ordem (Por exemplo dado o nó Root ou em um laço)
@@ -19,9 +20,11 @@ def trata_root(root, sa, nms, linha):
     sa(node, nms, linha)
 
 # Trata o fim de um statement ou statments
-def trata_none(node, sa, nms):
+def trata_none(node, sa, nms, linha):
     pass        
 
+
+# Mapeamento de nó -> função_de_tratamento
 tratamentos = {
     None : trata_none,
     'root' : trata_root,
@@ -29,8 +32,15 @@ tratamentos = {
     'declaracao' : trata_declaracao,
     'reatribuicao' : trata_reatribuicao, 
     'imprima' : trata_imprima,
+    'leia' : trata_leia,
+    'enquanto' : trata_enquanto,
+    'se' : trata_se,
 }
 
 def semantic_analyser(node, nms, linha):
-    funcao_tratar = tratamentos[node[0]]
+    
+    if node != None:
+        funcao_tratar = tratamentos[node[0]]
+    else:
+        funcao_tratar = tratamentos[node]
     return funcao_tratar(node, semantic_analyser, nms, linha)
