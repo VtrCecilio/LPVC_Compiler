@@ -37,7 +37,8 @@ def p_statement(p):
     | condicional
     | laco
     | declaracao
-    | reatribuicao'''
+    | reatribuicao
+    | para'''
     p[0] = p[1]
 
 def p_error(p):

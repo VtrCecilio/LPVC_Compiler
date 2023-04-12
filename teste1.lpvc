@@ -26,3 +26,7 @@ se 3>1 {
 
 #leia(nome);
 #leia(sobrenome);
+
+para 3 ate 5 em 1 {
+
+};

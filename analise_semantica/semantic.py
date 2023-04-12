@@ -35,6 +35,7 @@ tratamentos = {
     'leia' : trata_leia,
     'enquanto' : trata_enquanto,
     'se' : trata_se,
+    'para' : trata_para,
 }
 
 def semantic_analyser(node, nms, linha):

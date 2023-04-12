@@ -10,6 +10,9 @@ class Lexer(object):
         'texto' : 'VAR_TEXTO',
         'imprima' : 'IMPRIMA',
         'leia' : 'LEIA',
+        'para' : 'PARA',
+        'ate' : 'ATE',
+        'em' : 'EM',
         'booleano' : 'VAR_BOOLEANO',
         'verdadeiro' : 'VERDADEIRO',
         'falso' : 'FALSO'
