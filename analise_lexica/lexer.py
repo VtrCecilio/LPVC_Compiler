@@ -17,6 +17,7 @@ class Lexer(object):
         'verdadeiro' : 'VERDADEIRO',
         'falso' : 'FALSO',
         'procedimento' : 'PROCEDIMENTO',
+        'retorne' : 'RETORNE'
     }
     
     # Tipos de Tokens que existem na linguagem
@@ -40,7 +41,8 @@ class Lexer(object):
        'RECEBE',
        'DIFER',
        'PONTO_VIRGULA',
-       'VIRGULA'
+       'VIRGULA',
+       "DOIS_PONTOS"
      ] + list(reserved.values())
 
     def get_tokens(self):
@@ -64,6 +66,7 @@ class Lexer(object):
     t_RCHAV  = r'\}'
     t_PONTO_VIRGULA = r'\;'
     t_VIRGULA = r'\,'
+    t_DOIS_PONTOS = r'\:'
 
     # Regular Expression para literais do tipo 'numero'
     def t_NUMERO(self,t):

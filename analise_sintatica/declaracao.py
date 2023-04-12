@@ -16,8 +16,8 @@ def p_reatribuicao(p):
 
 # Declaração para funções
 def p_declara_funcao(p):
-    '''declaracao : PROCEDIMENTO ID LPAREN argumentos RPAREN LCHAV outro_statement RCHAV'''
-    p[0] = ('procedimento', p[2], p[4], p[7])
+    '''declaracao : PROCEDIMENTO ID LPAREN argumentos RPAREN DOIS_PONTOS tipo_variavel LCHAV outro_statement RETORNE expressao PONTO_VIRGULA RCHAV'''
+    p[0] = ('procedimento', p[2], p[4], p[7], p[9], p[11])
 
 def p_argumentos_nulo(p):
     '''argumentos : empty'''
