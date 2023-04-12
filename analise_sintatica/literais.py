@@ -1,3 +1,4 @@
+# Literais
 def p_literal(p):
     '''literal : literal_numero
     | literal_texto

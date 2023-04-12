@@ -11,6 +11,7 @@ from analise_sintatica.declaracao import *
 l = Lexer()
 tokens = l.get_tokens()
 
+# Define produção inicial
 start = 'root'
 
 def p_root(p):

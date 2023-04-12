@@ -1,4 +1,5 @@
-def p_condicional_laco(p):
+# Laços de repetição 
+def p_condicao_laco(p):
     '''condicao_laco : variavel 
     | literal_booleano
     | comparacao'''

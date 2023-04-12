@@ -38,6 +38,8 @@ tratamentos = {
     'para' : trata_para,
 }
 
+
+# Analisa semanticamente statements que não são só expressões
 def semantic_analyser(node, nms, linha):
     
     if node != None:

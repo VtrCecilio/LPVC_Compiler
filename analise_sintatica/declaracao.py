@@ -1,10 +1,10 @@
+# Declarações para variáveis
 def p_tipo_variavel(p):
     '''tipo_variavel : VAR_NUMERO
     | VAR_TEXTO
     | VAR_BOOLEANO'''
     p[0] = p[1]
 
-# Declarações para variáveis
 def p_declaracao(p):
     '''declaracao : tipo_variavel ID RECEBE expressao'''
     p[0] = ('declaracao', p[1], p[2], p[4])

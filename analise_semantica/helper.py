@@ -1,6 +1,7 @@
 literais = ['texto', 'numero', 'booleano']
+operacoes = ['operacao_binaria', 'operacao_parenteses', 'comparacao']
 
-# Verifica redeclarações apenas no escopo no topo da pilha de namespaces.
+# Verifica redeclarações apenas no escopo no topo da pilha de namespaces
 def busca_namespaces(id, nms, linha):
     i = 0
     for nm in nms:
@@ -11,11 +12,14 @@ def busca_namespaces(id, nms, linha):
     exit()
 
 
+# Verifica em uma declaração se a variável já foi declarada
 def verifica_redeclaracao(id, nms, linha):
     if id in nms[0]:
         print('Erro semântico no statement %d. Variável \'%s\' já foi declarada nesse escopo.' % (linha, id))
         exit()
 
+
+# Subfunção de verifica_semantica (Numero)
 def verifica_numero(expressao, sa, nms, linha):
     if expressao[0] == 'operacao_binaria':
         verifica_semantica('numero', expressao[1], sa, nms, linha)
@@ -33,6 +37,8 @@ def verifica_numero(expressao, sa, nms, linha):
         print('Erro semântico no statement %d. Expressão não é do tipo numérica.' % linha)
         exit()
 
+
+# Subfunção de verifica_semantica (Texto)
 def verifica_texto(expressao, sa, nms, linha):
     if expressao[0] == 'operacao_binaria':
         if expressao[2] != '+':
@@ -59,6 +65,7 @@ def verifica_texto(expressao, sa, nms, linha):
         exit()
 
 
+# Subfunção de verifica_semantica (Booleano)
 def verifica_booleano(expressao, sa, nms, linha):
     if expressao[0] == 'comparacao':
         verifica_semantica('numero', expressao[1], sa, nms, linha)
@@ -70,6 +77,8 @@ def verifica_booleano(expressao, sa, nms, linha):
         print('Erro semântico no statement %d. Expressão não é do tipo booleano.' % linha)
         exit()
 
+
+# Verifica a validade semântica de uma expressão
 def verifica_semantica(tipo, expressao, sa, nms, linha):
     if expressao == None:
         pass
@@ -82,7 +91,9 @@ def verifica_semantica(tipo, expressao, sa, nms, linha):
     elif tipo == 'booleano':
         if expressao[0] != 'booleano':
             verifica_booleano(expressao, sa, nms, linha)
-        
+
+
+# Descobre o tipo de uma operação com base no primeiro operando
 def resolve_type(node, sa, nms, linha):
     if node[0] in literais:
         return node[0]
