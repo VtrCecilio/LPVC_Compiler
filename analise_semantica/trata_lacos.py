@@ -17,7 +17,7 @@ def trata_para(node, sa, nms, linha):
     sa(node[4], nms, linha)
     nms.pop(0)
 
-# Laço de controle
+# Laço de controle (se | senão)
 def trata_se(node, sa, nms, linha):
     verifica_semantica('booleano', node[1], sa, nms, linha)
     
