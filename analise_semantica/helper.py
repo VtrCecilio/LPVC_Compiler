@@ -117,7 +117,7 @@ def resolve_type(node, sa, nms, linha):
 
 
 # Inicializa argumentos no namespace de uma função
-def inicializa_argumentos(argumentos, sa, nms, linha):
+def inicializa_argumentos(argumentos, proc_id, sa, nms, linha):
     argumento1 = argumentos[0]
 
     verifica_redeclaracao_argumento(argumento1[1], nms, linha)
@@ -130,5 +130,7 @@ def inicializa_argumentos(argumentos, sa, nms, linha):
     elif argumento1[0] == 'booleano':
         nms[0][argumento1[1]] = ('booleano', 'verdadeiro')
 
+    nms[1]['procedimento'][proc_id].append(argumento1[0]) 
+
     if resto_argumentos != None:
-        inicializa_argumentos(resto_argumentos, sa, nms, linha)
+        inicializa_argumentos(resto_argumentos, proc_id, sa, nms, linha)
