@@ -10,12 +10,11 @@ def trata_statements(node, sa, nms, linha):
     for statement in statements:
         if (statement != None) and (statement[0] in literais):
             # Apenas um literal, o statement já é considerado correto por si só
-            pass
+            linha += 1
         elif (statement != None) and (statement[0] in operacoes):
-            trata_expressoes(statement, sa, nms, linha)
+            trata_expressoes(statement, sa, nms, linha+1)
         else:
-            sa(statement, nms, linha)
-        linha += 1
+            sa(statement, nms, linha+1)
 
 
 # Trata o primeiro nó da AST

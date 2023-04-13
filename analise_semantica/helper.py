@@ -17,7 +17,7 @@ def busca_procedimento(id, nms, linha):
         if id in nm['procedimento']:
             return nm['procedimento'][id], i
         i += 1
-    print('Erro semântico no statement %d. Procedimentp \'%s\' não foi declarado.' % (linha, id))
+    print('Erro semântico no statement %d. Procedimento \'%s\' não foi declarado.' % (linha, id))
     exit()
 
 # Verifica em uma declaração se a variável/procedimento já foi declarada no escopo atual

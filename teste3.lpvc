@@ -1,0 +1,32 @@
+se 3>1 {
+
+    procedimento dia(numero segundo) : numero {
+        retorne 13;
+    };
+
+
+    dia(13);
+
+
+} senao {
+
+    procedimento outro_dia(numero minuto) : numero {
+        retorne 8;
+    };
+
+    outro_dia(30);
+    # dia(13);
+
+    se 1>1{
+        procedimento compila(texto brabidade) : texto {
+            retorne brabidade;
+        };
+
+        compila('muito brabo');
+    };
+    #compila('muito brabo');
+};
+
+
+#outro_dia(13);
+#dia(13);
