@@ -28,7 +28,7 @@ se 3>1 {
 };
 
 se 3>1 {
-    asdsdas;
+    imprima('amigos');
 };
 
 #leia(nome);

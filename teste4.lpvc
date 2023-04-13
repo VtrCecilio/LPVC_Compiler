@@ -1,0 +1,7 @@
+numero contador = 1;
+
+para contador ate 10 em 2 {
+
+  imprima(contador);  
+
+};
