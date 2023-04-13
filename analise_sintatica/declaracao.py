@@ -25,7 +25,7 @@ def p_argumentos_nulo(p):
 
 def p_argumentos(p):
     '''argumentos : tipo_variavel ID resto_argumentos'''
-    p[0] = (p[1], p[2])
+    p[0] = ((p[1], p[2]), p[3])
 
 def p_resto_argumentos_nulo(p):
     '''resto_argumentos : empty'''

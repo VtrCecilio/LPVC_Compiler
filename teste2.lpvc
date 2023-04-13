@@ -1,5 +1,7 @@
-procedimento aniversario(numero dia) : numero {
-    3+1;
+procedimento aniversario(numero dia, numero mes) : texto {
+    numero primeiro = 1;
+    texto segundo = 'segundo';
+    texto terceiro = 'terceiro';
 
-    retorne 3;
+    retorne segundo + terceiro;
 };

@@ -23,7 +23,7 @@ def trata_root(root, sa, nms, linha):
     node = root[1]
     if node == None:
         exit()
-    nms.insert(0, {})
+    nms.insert(0, {'procedimento' : {}})
     sa(node, nms, linha)
 
 # Trata o fim de um statement ou statments

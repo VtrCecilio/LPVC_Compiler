@@ -12,10 +12,20 @@ def busca_namespaces(id, nms, linha):
     exit()
 
 
-# Verifica em uma declaração se a variável já foi declarada
+# Verifica em uma declaração se a variável/procedimento já foi declarada no escopo atual
 def verifica_redeclaracao(id, nms, linha):
     if id in nms[0]:
         print('Erro semântico no statement %d. Variável \'%s\' já foi declarada nesse escopo.' % (linha, id))
+        exit()
+
+def verifica_redeclaracao_argumento(id, nms, linha):
+    if id in nms[0]:
+        print('Erro semântico no statement %d. Argumento com identificador \'%s\' já foi mencionado.' % (linha, id))
+        exit()
+
+def verifica_redeclaracao_procedimento(id, nms, linha):
+    if id in nms[0]['procedimento']:
+        print('Erro semântico no statement %d. Procedimento \'%s\' já foi declarada nesse escopo.' % (linha, id))
         exit()
 
 
@@ -104,3 +114,21 @@ def resolve_type(node, sa, nms, linha):
         return variavel[0]
     else:
         return resolve_type(node[1], sa, nms, linha)
+
+
+# Inicializa argumentos no namespace de uma função
+def inicializa_argumentos(argumentos, sa, nms, linha):
+    argumento1 = argumentos[0]
+
+    verifica_redeclaracao_argumento(argumento1[1], nms, linha)
+
+    resto_argumentos = argumentos[1]
+    if argumento1[0] == 'numero':
+        nms[0][argumento1[1]] = ('numero', 0)
+    elif argumento1[0] == 'texto':
+        nms[0][argumento1[1]] = ('texto', '')
+    elif argumento1[0] == 'booleano':
+        nms[0][argumento1[1]] = ('booleano', 'verdadeiro')
+
+    if resto_argumentos != None:
+        inicializa_argumentos(resto_argumentos, sa, nms, linha)

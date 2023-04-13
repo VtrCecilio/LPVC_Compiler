@@ -10,14 +10,18 @@ def trata_declaracao(node, sa, nms, linha):
 
     nms[0][id] = (tipo, expressao)
 
-
 def trata_reatribuicao(node, sa , nms, linha):
     varivavel, i = busca_namespaces(node[1], nms, linha)
     verifica_semantica(varivavel[0], node[2], sa, nms, linha)
-
     nms[i][node[1]] = node[2] 
 
 
 # Declaração de procedimentos
-def trata_procedimento(node, sa, nms, lina):
-    pass
+def trata_procedimento(node, sa, nms, linha):
+    verifica_redeclaracao_procedimento(node[1], nms, linha)
+    nms.insert(0, {'procedimento' : {}})
+    inicializa_argumentos(node[2], sa, nms, linha)
+    #print(nms[0])
+    sa(node[4], nms, linha)
+
+    verifica_semantica(node[3], node[5], sa, nms, linha)
