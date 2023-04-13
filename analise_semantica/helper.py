@@ -11,6 +11,14 @@ def busca_namespaces(id, nms, linha):
     print('Erro semântico no statement %d. Variável \'%s\' não foi declarada.' % (linha, id))
     exit()
 
+def busca_procedimento(id, nms, linha):
+    i = 0
+    for nm in nms:
+        if id in nm['procedimento']:
+            return nm['procedimento'][id], i
+        i += 1
+    print('Erro semântico no statement %d. Procedimentp \'%s\' não foi declarado.' % (linha, id))
+    exit()
 
 # Verifica em uma declaração se a variável/procedimento já foi declarada no escopo atual
 def verifica_redeclaracao(id, nms, linha):
@@ -43,6 +51,11 @@ def verifica_numero(expressao, sa, nms, linha):
     elif expressao[0] == 'variavel':
         variavel, i = busca_namespaces(expressao[1], nms, linha)
         verifica_semantica('numero', variavel, sa, nms, linha)
+    elif expressao[0] == 'chama_procedimento':
+        procedimento, i = busca_procedimento(expressao[1], nms, linha)
+        if procedimento['tipo'] != 'numero':
+            print('Erro semântico no statement %d. Procedimento %s não retorna tipo \'numero\'.' % (linha, expressao[1]))
+            exit()
     else:
         print('Erro semântico no statement %d. Expressão não é do tipo numérica.' % linha)
         exit()
@@ -70,6 +83,11 @@ def verifica_texto(expressao, sa, nms, linha):
     elif expressao[0] == 'variavel':
         variavel, i = busca_namespaces(expressao[1], nms, linha)
         verifica_semantica('texto', variavel, sa, nms, linha)
+    elif expressao[0] == 'chama_procedimento':
+        procedimento, i = busca_procedimento(expressao[1], nms, linha)
+        if procedimento['tipo'] != 'texto':
+            print('Erro semântico no statement %d. Procedimento %s não retorna tipo \'texto\'.' % (linha, expressao[1]))
+            exit()
     else:
         print('Erro semântico no statement %d. Expressão não é do tipo textual.' % linha)
         exit()
@@ -83,6 +101,12 @@ def verifica_booleano(expressao, sa, nms, linha):
     elif expressao[0] == 'variavel':
         variavel, i = busca_namespaces(expressao[1], nms, linha)
         verifica_semantica('booleano', variavel, sa, nms, linha)
+
+    elif expressao[0] == 'chama_procedimento':
+        procedimento, i = busca_procedimento(expressao[1], nms, linha)
+        if procedimento['tipo'] != 'booleano':
+            print('Erro semântico no statement %d. Procedimento %s não retorna tipo \'booleano\'.' % (linha, expressao[1]))
+            exit()
     else: 
         print('Erro semântico no statement %d. Expressão não é do tipo booleano.' % linha)
         exit()
@@ -130,7 +154,17 @@ def inicializa_argumentos(argumentos, proc_id, sa, nms, linha):
     elif argumento1[0] == 'booleano':
         nms[0][argumento1[1]] = ('booleano', 'verdadeiro')
 
-    nms[1]['procedimento'][proc_id].append(argumento1[0]) 
+    nms[1]['procedimento'][proc_id]['argumentos'].append(argumento1[0]) 
 
     if resto_argumentos != None:
         inicializa_argumentos(resto_argumentos, proc_id, sa, nms, linha)
+
+def verifica_parametros(parametros, argumentos, sa, nms, linha):
+    
+    if parametros != None:
+        tipo_parametro1 = resolve_type(parametros[0], sa, nms, linha)
+        if tipo_parametro1 == argumentos[0]:
+            verifica_parametros(parametros[1], argumentos[1:], sa, nms, linha)
+        else:
+            print('Erro semântico no statement %d. Algum dos parâmetros que foram passados para a chamada da função não batem com o tipo correto.' % linha)
+            exit()

@@ -3,7 +3,8 @@ def p_expressao(p):
     '''expressao : literal
     | comparacao
     | operacao
-    | variavel'''
+    | variavel
+    | chama_procedimento'''
     p[0] = p[1]
 
 def p_variavel(p):
@@ -51,3 +52,26 @@ def p_comparacao(p):
 def p_condicao_paren(p):
     '''comparacao : LPAREN expressao comparador expressao RPAREN'''
     p[0] = ('comparacao', p[2], p[3], p[4])
+
+
+# Expressões, chama um procedimento
+def p_chama_procedimento(p):
+    '''chama_procedimento : ID LPAREN parametros RPAREN'''
+    p[0] = ('chama_procedimento', p[1], p[3])
+
+
+def p_parametro_nulo(p):
+    '''parametros : empty'''
+    pass
+
+def p_parametros(p):
+    '''parametros : expressao resto_parametros'''
+    p[0] = (p[1], p[2])
+
+def p_resto_parametros_nulo(p):
+    '''resto_parametros : empty'''
+    pass
+
+def p_resto_parametros(p):
+    '''resto_parametros : VIRGULA parametros'''
+    p[0] = p[2]

@@ -44,6 +44,7 @@ tratamentos = {
     'se' : trata_se,
     'para' : trata_para,
     'procedimento' : trata_procedimento,
+    'chama_procedimento' : trata_chama_procedimento,
 }
 
 

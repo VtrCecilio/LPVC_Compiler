@@ -20,7 +20,7 @@ def trata_reatribuicao(node, sa , nms, linha):
 def trata_procedimento(node, sa, nms, linha):
     verifica_redeclaracao_procedimento(node[1], nms, linha)
     nms.insert(0, {'procedimento' : {}})
-    nms[1]['procedimento'][node[1]] = []
+    nms[1]['procedimento'][node[1]] = {'tipo' : node[3], 'argumentos' : []}
     inicializa_argumentos(node[2], node[1], sa, nms, linha)
     sa(node[4], nms, linha)
     verifica_semantica(node[3], node[5], sa, nms, linha)

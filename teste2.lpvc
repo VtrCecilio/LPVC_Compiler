@@ -5,3 +5,7 @@ procedimento aniversario(numero dia, numero mes) : texto {
 
     retorne segundo + terceiro;
 };
+
+texto sla = aniversario(3, 2);
+
+aniversario(1, 1);
