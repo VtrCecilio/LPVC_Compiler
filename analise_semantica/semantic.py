@@ -11,6 +11,8 @@ def trata_statements(node, sa, nms, linha):
         if (statement != None) and (statement[0] in literais):
             # Apenas um literal, o statement já é considerado correto por si só
             linha += 1
+        elif (statement != None) and statement[0] == 'variavel':
+            busca_namespaces(statement[1], nms, linha)
         elif (statement != None) and (statement[0] in operacoes):
             trata_expressoes(statement, sa, nms, linha+1)
         else:

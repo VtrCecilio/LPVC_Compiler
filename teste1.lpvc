@@ -1,5 +1,8 @@
 numero primeiro = 1;
 
+primeiro = 3 + 1;
+
+
 enquanto (3 > 1) {
     numero segundo = 2;
 
@@ -22,6 +25,10 @@ se 3>1 {
     texto nome = 'vitor';
 } senao {
     texto sobrenome = 'cecilio';
+};
+
+se 3>1 {
+    asdsdas;
 };
 
 #leia(nome);
