@@ -168,3 +168,9 @@ def verifica_parametros(parametros, argumentos, sa, nms, linha):
         else:
             print('Erro semântico no statement %d. Algum dos parâmetros que foram passados para a chamada da função não batem com o tipo correto.' % linha)
             exit()
+
+def conta_parametros(parametros):
+    if parametros == None:
+        return 0
+    else:
+        return 1 + conta_parametros(parametros[1])

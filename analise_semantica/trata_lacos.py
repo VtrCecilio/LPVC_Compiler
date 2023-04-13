@@ -26,11 +26,13 @@ def trata_para(node, sa, nms, linha):
 def trata_se(node, sa, nms, linha):
     verifica_semantica('booleano', node[1], sa, nms, linha)
     
+    # Semantica dos statements do SE
     nms.insert(0, {'procedimento' : {}})
     sa(node[2], nms, linha)
     #print(nms[0])
     nms.pop(0)
     
+    # Semantica dos statements do SENAO
     nms.insert(0, {'procedimento' : {}})
     sa(node[3], nms, linha)
     #print(nms[0])

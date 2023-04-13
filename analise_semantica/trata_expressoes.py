@@ -6,11 +6,10 @@ def trata_expressoes(node, sa, nms, linha):
 
 def trata_chama_procedimento(node, sa, nms, linha):
     procedimento, i = busca_procedimento(node[1], nms, linha)
-    if (node[2] == None) and len(procedimento['argumentos']) > 0:
-        print('Erro semântico no statement %d. Procedimento \'%s\' necessita de \'%d\' argumentos.' % (linha, node[1], len(procedimento['argumentos'])))
+    n_parametros = conta_parametros(node[2])
+    if n_parametros != len(procedimento['argumentos']):
+        print('Erro semântico no statement %d. Procedimento \'%s\' necessita de \'%d\' argumentos, foram passados \'%d\'.' % (linha, node[1], len(procedimento['argumentos']), n_parametros))
         exit()
-    elif (node[2] == None) and len(procedimento['argumentos'] == 0):
-        pass
     else:
         verifica_parametros(node[2], procedimento['argumentos'], sa, nms, linha)
 
