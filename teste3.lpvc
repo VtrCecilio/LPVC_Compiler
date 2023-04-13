@@ -1,5 +1,5 @@
 se 3>1 {
-    numero data = 13;
+    
 } senao {
     procedimento outro_dia(numero minuto) : numero {
         retorne 8;
